@@ -3,7 +3,7 @@ async function getDeparturesByDestinations(stop, ...destinations) {
     const response = await fetch(url);
     if (!response.ok) {
         console.log(`Response status: ${response.status}`);
-        return "Kunde inte hämta data";
+        return ["Kunde inte hämta data"];
     }
     const result = await response.json();
     console.log(result);
