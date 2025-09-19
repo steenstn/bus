@@ -27,7 +27,7 @@
                 data.forEach(d => {output.innerText+=d.designation + " mot " + d.destination + " - " + d.display + "\n"});
             };
             /// https://www.trafiklab.se/api/our-apis/sl/transport/
-            getDeparturesByDestinations(norraSkondal, ["801", "814"], ["Älta", "Stockholm C"]).then(result => {
+            getDeparturesByDestinations(norraSkondal, ["801", "814"], ["Älta", "Södra Hedvigslund", "Stockholm C"]).then(result => {
                 updateDepartures("norraSkondal", result);
             });
             getDeparturesByDestinations(ekstubben, ["801", "814"], ["Gullmarsplan"]).then(result => {
