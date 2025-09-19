@@ -1,3 +1,4 @@
+// https://transport.integration.sl.se/v1/sites/9191/departures
 
 async function getDepartures(stop, buses, destinations) {
     const url = `https://transport.integration.sl.se/v1/sites/${stop}/departures`;
