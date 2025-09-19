@@ -16,7 +16,8 @@
         
         <h2>Vattugatan</h2>
         <p id="vattugatan">Laddar...</p>
-
+        <br />
+        <p id="latestUpdate">Senast uppdaterad: </p>
         <script>
             let ekstubben = 4604;
             let norraSkondal = 1810;
@@ -27,6 +28,10 @@
                 let output = document.getElementById(id);
                 output.innerText = "";
                 data.forEach(d => {output.innerText+=d.designation + " mot " + d.destination + " - " + d.display + "\n"});
+
+                let latestUpdate = document.getElementById("latestUpdate");
+                let now = new Date();
+                latestUpdate.innerText = `Senast uppdaterad:  ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
             };
             /// https://www.trafiklab.se/api/our-apis/sl/transport/
             getDepartures(norraSkondal, ["801", "814"], ["Älta", "Södra Hedvigslund", "Stockholm C"]).then(result => {
