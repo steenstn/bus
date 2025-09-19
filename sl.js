@@ -1,4 +1,4 @@
-async function getDepartures(stop, ...destinations) {
+async function getDeparturesByDestinations(stop, ...destinations) {
     const url = `https://transport.integration.sl.se/v1/sites/${stop}/departures`;
     const response = await fetch(url);
     if (!response.ok) {
@@ -11,5 +11,7 @@ async function getDepartures(stop, ...destinations) {
     .filter(d => destinations.includes(d.destination))
     .map(d => d.line.designation + " mot " + d.destination + " - " + d.display + "\n");
       
-    return filtered;
+    return filtered.length === 0 ? ["Inga resultat"] : filtered;
 }
+
+

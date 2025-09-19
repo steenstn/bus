@@ -12,10 +12,14 @@
         <h2>Gullmarsplan</h2>
         <p id="gullmarsplan">Laddar...</p>
         
+        <h2>Vattugatan</h2>
+        <p id="vattugatan">Laddar...</p>
+
         <script>
             let ekstubben = 4604;
             let norraSkondal = 1810;
             let gullmarsplan = 9189;
+            let vattugatan = 9934;
 
             let updateDepartures = (id, data) => {
                 let output = document.getElementById(id);
@@ -23,18 +27,17 @@
                 data.forEach(d => output.innerText+=d);
             };
             /// https://www.trafiklab.se/api/our-apis/sl/transport/
-            getDepartures(norraSkondal, "Älta", "Stockholm C").then(result => {
-                let output = document.getElementById("norraSkondal");
-                output.innerText = "";
-                result.forEach(r => output.innerText+=r);
+            getDeparturesByDestinations(norraSkondal, "Älta", "Stockholm C").then(result => {
+                updateDepartures("norraSkondal", result);
             });
-            getDepartures(ekstubben, "Gullmarsplan").then(result => {
-                let output = document.getElementById("ekstubben");
-                output.innerText = "";
-                result.forEach(r => output.innerText+=r);
+            getDeparturesByDestinations(ekstubben, "Gullmarsplan").then(result => {
+                updateDepartures("ekstubben", result);
             });
-            getDepartures(gullmarsplan, "Älta", "Södra Hedvigslund").then(result => {
+            getDeparturesByDestinations(gullmarsplan, "Älta", "Södra Hedvigslund").then(result => {
                 updateDepartures("gullmarsplan", result);
+            });
+            getDeparturesByDestinations(vattugatan, "Tyresö Kyrka", "Nyfors", "Tyresö C").then(result => {
+                updateDepartures("vattugatan", result);
             });
            //4604 
         </script>
