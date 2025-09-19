@@ -1,6 +1,8 @@
 <html>
-    <head><meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="sl.js"></script>
+        <title>Avgångar</title>
     </head>
     <body>
         <h2>Ekstubben</h2>
@@ -27,16 +29,16 @@
                 data.forEach(d => {output.innerText+=d.designation + " mot " + d.destination + " - " + d.display + "\n"});
             };
             /// https://www.trafiklab.se/api/our-apis/sl/transport/
-            getDeparturesByDestinations(norraSkondal, ["801", "814"], ["Älta", "Södra Hedvigslund", "Stockholm C"]).then(result => {
+            getDepartures(norraSkondal, ["801", "814"], ["Älta", "Södra Hedvigslund", "Stockholm C"]).then(result => {
                 updateDepartures("norraSkondal", result);
             });
-            getDeparturesByDestinations(ekstubben, ["801", "814"], ["Gullmarsplan"]).then(result => {
+            getDepartures(ekstubben, ["801", "814"], ["Gullmarsplan"]).then(result => {
                 updateDepartures("ekstubben", result);
             });
-            getDeparturesByDestinations(gullmarsplan, ["801", "814"], ["Älta", "Södra Hedvigslund"]).then(result => {
+            getDepartures(gullmarsplan, ["801", "814"], ["Älta", "Södra Hedvigslund"]).then(result => {
                 updateDepartures("gullmarsplan", result);
             });
-            getDeparturesByDestinations(vattugatan, ["812C", "813C", "815C"], ["Tyresö Kyrka", "Nyfors", "Tyresö C"]).then(result => {
+            getDepartures(vattugatan, ["812C", "813C", "815C"], ["Tyresö Kyrka", "Nyfors", "Tyresö C"]).then(result => {
                 updateDepartures("vattugatan", result);
             });
         </script>

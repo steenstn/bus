@@ -1,5 +1,5 @@
 
-async function getDeparturesByDestinations(stop, buses, destinations) {
+async function getDepartures(stop, buses, destinations) {
     const url = `https://transport.integration.sl.se/v1/sites/${stop}/departures`;
     const response = await fetch(url);
     if (!response.ok) {
