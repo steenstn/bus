@@ -7,9 +7,9 @@ async function getDepartures(stop, buses, destinations) {
         return [];
     }
     const result = await response.json();
-    console.log(result);
+    //console.log(result);
+
     const filtered = result.departures
-    
     .filter(d => buses.includes(d.line.designation) && destinations.includes(d.destination))
     .map(d => ({designation: d.line.designation, destination: d.destination, display: d.display}));
       
