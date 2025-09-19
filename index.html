@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <script src="sl.js"></script>
+    </head>
+    <body>
+        <h2>Ekstubben</h2>
+        <p id="ekstubben">Laddar...</p>
+
+        <h2>Norra sköndal</h2>
+        <p id="norraSkondal">Laddar...</p>
+
+        <h2>Gullmarsplan</h2>
+        <p id="gullmarsplan">Laddar...</p>
+        
+        <script>
+            let ekstubben = 4604;
+            let norraSkondal = 1810;
+            let gullmarsplan = 9189;
+
+            let updateDepartures = (id, data) => {
+                let output = document.getElementById(id);
+                output.innerText = "";
+                data.forEach(d => output.innerText+=d);
+            };
+            /// https://www.trafiklab.se/api/our-apis/sl/transport/
+            getDepartures(norraSkondal, "Älta", "Stockholm C").then(result => {
+                let output = document.getElementById("norraSkondal");
+                output.innerText = "";
+                result.forEach(r => output.innerText+=r);
+            });
+            getDepartures(ekstubben, "Gullmarsplan").then(result => {
+                let output = document.getElementById("ekstubben");
+                output.innerText = "";
+                result.forEach(r => output.innerText+=r);
+            });
+            getDepartures(gullmarsplan, "Älta", "Södra Hedvigslund").then(result => {
+                updateDepartures("gullmarsplan", result);
+            });
+           //4604 
+        </script>
+    </body>
+</html>
