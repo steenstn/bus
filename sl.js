@@ -10,16 +10,21 @@ function searchDestination() {
 }
 
 function searchInternal(inputElement, resultElement) {
-    let start = performance.now()
     let input = document.getElementById(inputElement);
     let searchString = input.value;
     if (searchString.length >=2) {
+    let start = performance.now()
         let result = search(searchString, siteNames);
-        //console.log(result);
         let output = document.getElementById(resultElement);
-        output.innerHTML = result.map(r => "<li value=\""+ r.name + "\">" + r.name + "</li>").slice(0,10).join("");
-    }
+        output.textContent = "";
+        result.forEach(r => {
+            let li = document.createElement("li");
+            li.textContent = r.name;
+            output.appendChild(li);
+        });
+        
     console.log(performance.now()-start);
+    }
 }
 
 
