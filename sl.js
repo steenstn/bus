@@ -23,6 +23,18 @@ function searchInternal(inputElement, resultElement) {
 }
 
 
+function store() {
+    let site = document.getElementById("siteSearchInput");
+    let destination = document.getElementById("destinationSearchInput");
+    let buses = document.getElementById("busSearchInput");
+
+    console.log(site.value, destination.value, buses.value);
+    let result = {site: site.value, destination:destination.value,buses:buses.value};
+    let resultJson = JSON.stringify(result);
+    document.cookie = `savedSites=${resultJson};path=/`;
+    console.log(document.cookie)
+}
+
 function search(searchString, siteNames) {
     return siteNames.filter(s => s.name.toLowerCase().includes(searchString.toLowerCase()));
 }
