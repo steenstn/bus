@@ -1,5 +1,32 @@
 // https://transport.integration.sl.se/v1/sites/9191/departures
 
+
+function searchSite() {
+    searchInternal("siteSearchInput", "siteSearchResult")
+}
+
+function searchDestination() {
+    searchInternal("destinationSearchInput", "destinationSearchResult")
+}
+
+function searchInternal(inputElement, resultElement) {
+    let start = performance.now()
+    let input = document.getElementById(inputElement);
+    let searchString = input.value;
+    if (searchString.length >=2) {
+        let result = search(searchString, siteNames);
+        //console.log(result);
+        let output = document.getElementById(resultElement);
+        output.innerHTML = result.map(r => "<li value=\""+ r.name + "\">" + r.name + "</li>").slice(0,10).join("");
+    }
+    console.log(performance.now()-start);
+}
+
+
+function search(searchString, siteNames) {
+    return siteNames.filter(s => s.name.toLowerCase().includes(searchString.toLowerCase()));
+}
+
 async function getDepartures(stop, buses, destinations) {
     const url = `https://transport.integration.sl.se/v1/sites/${stop}/departures`;
     const response = await fetch(url);
