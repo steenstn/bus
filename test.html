@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="siteNames.js"></script>
+        <style>
+            .search-container {
+                display: flex;
+                gap: 2em;
+                align-items: flex-start;
+            }
+            .search-section {
+                display: flex;
+                flex-direction: column;
+            }
+        </style>
+    </head>
+    <body>
+
+    <div class="search-container">
+        <div class="search-section">
+            <p>Slow search</p>
+            <input id="slowSearchInput" type="text" onInput="slowSearch()" />
+            <ul id="slowSearchResult">
+            </ul>
+        </div>
+        <div class="search-section">
+            <p>Fast search</p>
+            <input id="fastSearchInput" type="text" onInput="fastSearch()" />
+            <ul id="fastSearchResult">
+            </ul>
+        </div>
+    </div>
+        <script>
+
+function slowSearch() {
+    let input = document.getElementById("slowSearchInput");
+    let searchString = input.value;
+    if (searchString.length >=2) {
+        let start = performance.now()
+        let result = search(searchString, siteNames);
+        let output = document.getElementById("slowSearchResult");
+       
+        output.innerHTML = "";
+        let results = result.map(r => `<li value="${r.name}">${r.name}</li>`);
+        results.forEach(r => output.innerHTML+=r);
+        console.log("Slow search time: " + (performance.now()-start));
+    }
+}
+
+function fastSearch() {
+    let input = document.getElementById("fastSearchInput");
+    let searchString = input.value;
+    if (searchString.length >=2) {
+        let start = performance.now()
+        let result = search(searchString, siteNames);
+        let output = document.getElementById("fastSearchResult");
+        
+        output.innerHTML = result.map(r => `<li value="${r.name}">${r.name}</li>`).join("");
+        console.log("Fast search time: " + (performance.now()-start));
+    }
+}
+function search(searchString, siteNames) {
+    return siteNames.filter(s => s.name.toLowerCase().includes(searchString.toLowerCase()));
+}
+
+
+
+
+        </script>
+    </body>
+
+</html>
