@@ -35,14 +35,18 @@
 function slowSearch() {
     let input = document.getElementById("slowSearchInput");
     let searchString = input.value;
-    if (searchString.length >=2) {
+    if (true) {
         let start = performance.now()
         let result = search(searchString, siteNames);
         let output = document.getElementById("slowSearchResult");
        
         output.innerHTML = "";
-        let results = result.map(r => `<li value="${r.name}">${r.name}</li>`);
-        results.forEach(r => output.innerHTML+=r);
+        //results.forEach(r => output.innerHTML+=r);
+        result.forEach(r => {
+            const li = document.createElement("li");
+            li.textContent = r.name; 
+            output.appendChild(li);
+        });
         console.log("Slow search time: " + (performance.now()-start));
     }
 }
