@@ -1,6 +1,29 @@
 <html>
     <head>
+        <style>
+        .inline-block {
+            display:inline-block;
+        }
+        .inline{
+            display:inline;
+        }
+        #searchBoxes {
+            display:inline;
+        }
+        #siteSearchInput {
+
+        }
+        #destinatinSearchInput {
+
+        }
+        #busSearchInput {
+
+        }
+
+        </style>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="sites.js"></script>
+        <script src="siteNames.js"></script>
         <script src="sl.js"></script>
         <title>Avgångar</title>
     </head>
@@ -18,7 +41,31 @@
         <p id="vattugatan">Laddar...</p>
         <br />
         <p id="latestUpdate">Senast uppdaterad: </p>
+        <div id="searchBoxes">
+
+            <div class="inline">
+            <p>Station</p>
+            <input id="siteSearchInput" type="text" onInput="searchSite()" />
+            <ul id="siteSearchResult">
+            </ul>
+            </div>
+
+            <div class="inline">
+                <p>Destination</p>
+                <input id="destinationSearchInput" type="text" onInput="searchDestination()" />
+                <ul id="destinationSearchResult">
+                </ul>
+            </div>
+
+            <div class="inline-block">
+                <p>Busslinje</p>
+                <input id="busSearchInput" type="text" />
+            </div>
+        </div>
+        <button id="addSite" onClick="store()">Lägg till</button>
+
         <script>
+            console.log(document.cookie)
             let ekstubben = 4604;
             let norraSkondal = 1810;
             let gullmarsplan = 9189;
@@ -46,6 +93,7 @@
             getDepartures(vattugatan, ["812C", "813C", "815C"], ["Tyresö Kyrka", "Nyfors", "Tyresö C"]).then(result => {
                 updateDepartures("vattugatan", result);
             });
+
         </script>
     </body>
 </html>
