@@ -1,5 +1,11 @@
 // https://transport.integration.sl.se/v1/sites/9191/departures
 
+// Use a testCookie for local development
+var startTestCookie = btoa(`[{"site":"Ekstubben","destination":"Gullmarsplan","buses":"801"}]`)
+var testCookie = `savedSites=${startTestCookie};path=/`;
+var isTest = window.location.href.includes("file://");
+let getCookie = isTest ? () => {console.log(testCookie); return testCookie} : () => document.cookie;
+let setCookie = isTest ? (value) =>{testCookie = `savedSites=${value};path=/`;} : (value) => { document.cookie = `savedSites=${value};path=/`}
 
 function searchSite() {
     searchInternal("siteSearchInput", "siteSearchResult")
@@ -34,11 +40,30 @@ function store() {
     let buses = document.getElementById("busSearchInput");
 
     console.log(site.value, destination.value, buses.value);
-    let result = {site: site.value, destination:destination.value,buses:buses.value};
-    let resultJson = JSON.stringify(result);
-    document.cookie = `savedSites=${resultJson};path=/`;
-    console.log(document.cookie)
+    let currentStoredSites = getStoredSites();
+    currentStoredSites.push({site: site.value, destination:destination.value,buses:buses.value});
+    let resultJson = btoa(JSON.stringify(currentStoredSites));
+    console.log(resultJson);
+    setCookie(resultJson)
+    console.log(getStoredSites());
 }
+
+function getStoredSites() {
+    let result = parseCookie(getCookie());
+    console.log(result);
+    return result;
+}
+
+function parseCookie(cookie) {
+    let savedSitesRegex=/savedSites=(.*);/;
+    let match = cookie.match(savedSitesRegex);
+    if (match?.length == 2) {
+        console.log("matches", match)
+        return JSON.parse(atob(match[1]));
+    }
+    return [];
+}
+
 
 function search(searchString, siteNames) {
     return siteNames.filter(s => s.name.toLowerCase().includes(searchString.toLowerCase()));
