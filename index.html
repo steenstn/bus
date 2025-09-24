@@ -19,20 +19,10 @@
         <title>Avgångar</title>
     </head>
     <body>
-        <h2>Ekstubben</h2>
-        <p id="ekstubben">Laddar...</p>
+        <div id="allStops">
 
-        <h2>Norra sköndal</h2>
-        <p id="norraSkondal">Laddar...</p>
-
-        <h2>Gullmarsplan</h2>
-        <p id="gullmarsplan">Laddar...</p>
-        
-        <h2>Vattugatan</h2>
-        <p id="vattugatan">Laddar...</p>
-        <br />
-        <p id="latestUpdate">Senast uppdaterad: </p>
-        <div id="searchBoxes">
+        </div>
+            <div id="searchBoxes">
 
             <div class="inline">
             <p>Station</p>
@@ -53,10 +43,45 @@
                 <input id="busSearchInput" type="text" />
             </div>
         </div>
-        <button id="addSite" onClick="store()">Lägg till</button>
+        <button id="addSite" onClick="lol()">Lägg till</button>
 
         <script>
+            let lol = () => {
+                store();
+                document.getElementById("allStops").textContent='';
+            getStoredSites().forEach(s => {
+                // {"id":4604,"site":"Ekstubben","destination":"Gullmarsplan","buses":"801"}
+                getDepartures(s.id, [s.buses], [s.destination]).then(result => {
+                    console.log(result)
+                    let header  = document.createElement("h2")
+                    header.textContent = s.site
+                    document.getElementById("allStops").appendChild(header)
+                    result.forEach(r => {
+                        let row = document.createElement("p")
+                        row.innerText = r.designation + " mot " + r.destination + " - " + r.display+"\n";
+                    document.getElementById("allStops").appendChild(row)
+                    })
+
+                });
+            });
+            };
             console.log("stored", getStoredSites());
+            getStoredSites().forEach(s => {
+              // {"id":4604,"site":"Ekstubben","destination":"Gullmarsplan","buses":"801"}
+                getDepartures(s.id, [s.buses], [s.destination]).then(result => {
+                    console.log(result)
+                    let header  = document.createElement("h2")
+                    header.textContent = s.site
+                    document.getElementById("allStops").appendChild(header)
+                    result.forEach(r => {
+                        let row = document.createElement("p")
+                        row.innerText = r.designation + " mot " + r.destination + " - " + r.display+"\n";
+                    document.getElementById("allStops").appendChild(row)
+                    })
+
+                });
+
+            });
             let ekstubben = 4604;
             let norraSkondal = 1810;
             let gullmarsplan = 9189;
@@ -72,7 +97,7 @@
                 latestUpdate.innerText = `Senast uppdaterad:  ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
             };
             /// https://www.trafiklab.se/api/our-apis/sl/transport/
-            getDepartures(norraSkondal, ["801", "814"], ["Älta", "Södra Hedvigslund", "Stockholm C"]).then(result => {
+            /*getDepartures(norraSkondal, ["801", "814"], ["Älta", "Södra Hedvigslund", "Stockholm C"]).then(result => {
                 updateDepartures("norraSkondal", result);
             });
             getDepartures(ekstubben, ["801", "814"], ["Gullmarsplan"]).then(result => {
@@ -83,7 +108,7 @@
             });
             getDepartures(vattugatan, ["812C", "813C", "815C"], ["Tyresö Kyrka", "Nyfors", "Tyresö C"]).then(result => {
                 updateDepartures("vattugatan", result);
-            });
+            });*/
 
         </script>
     </body>

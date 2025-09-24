@@ -1,7 +1,7 @@
 // https://transport.integration.sl.se/v1/sites/9191/departures
 
 // Use a testCookie for local development
-var startTestCookie = btoa(`[{"site":"Ekstubben","destination":"Gullmarsplan","buses":"801"}]`)
+var startTestCookie = btoa(`[{"id":4604, "site":"Ekstubben","destination":"Gullmarsplan","buses":"801"}]`)
 var testCookie = `savedSites=${startTestCookie};path=/`;
 var isTest = window.location.href.includes("file://");
 let getCookie = isTest ? () => {console.log(testCookie); return testCookie} : () => document.cookie;
@@ -35,13 +35,14 @@ function searchInternal(inputElement, resultElement) {
 
 
 function store() {
-    let site = document.getElementById("siteSearchInput");
-    let destination = document.getElementById("destinationSearchInput");
-    let buses = document.getElementById("busSearchInput");
+    let site = document.getElementById("siteSearchInput").value;
+    let destination = document.getElementById("destinationSearchInput").value;
+    let buses = document.getElementById("busSearchInput").value;
 
-    console.log(site.value, destination.value, buses.value);
+    let id = sites.find(s => s.name === site).id;
+    console.log("Storing", id, site, destination, buses);
     let currentStoredSites = getStoredSites();
-    currentStoredSites.push({site: site.value, destination:destination.value,buses:buses.value});
+    currentStoredSites.push({id:id, site: site, destination:destination,buses:buses});
     let resultJson = btoa(JSON.stringify(currentStoredSites));
     console.log(resultJson);
     setCookie(resultJson)
