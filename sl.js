@@ -39,14 +39,11 @@ function store(id, site, destination, buses) {
     let currentStoredSites = getStoredSites();
     currentStoredSites.push({id:id, site: site, destination:destination,buses:buses});
     let resultJson = btoa(JSON.stringify(currentStoredSites));
-    console.log(resultJson);
     setCookie(resultJson)
-    console.log(getStoredSites());
 }
 
 function getStoredSites() {
     let result = parseCookie(getCookie());
-    console.log(result);
     return result;
 }
 
@@ -54,7 +51,6 @@ function parseCookie(cookie) {
     let savedSitesRegex=/savedSites=(.*);/;
     let match = cookie.match(savedSitesRegex);
     if (match?.length == 2) {
-        console.log("matches", match)
         return JSON.parse(atob(match[1]));
     }
     return [];

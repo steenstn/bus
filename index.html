@@ -43,10 +43,10 @@
                 <input id="busSearchInput" type="text" />
             </div>
         </div>
-        <button id="addSite" onClick="lol()">Lägg till</button>
+        <button id="addSite" onClick="storeAndUpdate()">Lägg till</button>
 
         <script>
-            let lol = () => {
+            let storeAndUpdate = () => {
 
                 let site = document.getElementById("siteSearchInput").value;
                 let destination = document.getElementById("destinationSearchInput").value;
@@ -56,34 +56,30 @@
                 store(id, site, destination, buses);
                 document.getElementById("allStops").textContent='';
             getStoredSites().forEach(s => {
-                // {"id":4604,"site":"Ekstubben","destination":"Gullmarsplan","buses":"801"}
                 getDepartures(s.id, [s.buses], [s.destination]).then(result => {
-                    console.log(result)
-                    let header  = document.createElement("h2")
-                    header.textContent = s.site
-                    document.getElementById("allStops").appendChild(header)
-                    result.forEach(r => {
-                        let row = document.createElement("p")
-                        row.innerText = r.designation + " mot " + r.destination + " - " + r.display+"\n";
-                    document.getElementById("allStops").appendChild(row)
-                    })
+                    update(result, s)
 
                 });
             });
             };
-            console.log("stored", getStoredSites());
-            getStoredSites().forEach(s => {
-              // {"id":4604,"site":"Ekstubben","destination":"Gullmarsplan","buses":"801"}
-                getDepartures(s.id, [s.buses], [s.destination]).then(result => {
-                    console.log(result)
+
+            let update = (result, s) => {
+                console.log(result)
                     let header  = document.createElement("h2")
                     header.textContent = s.site
                     document.getElementById("allStops").appendChild(header)
                     result.forEach(r => {
                         let row = document.createElement("p")
                         row.innerText = r.designation + " mot " + r.destination + " - " + r.display+"\n";
-                    document.getElementById("allStops").appendChild(row)
+                        document.getElementById("allStops").appendChild(row)
                     })
+            };
+
+            console.log("stored", getStoredSites());
+            getStoredSites().forEach(s => {
+              // {"id":4604,"site":"Ekstubben","destination":"Gullmarsplan","buses":"801"}
+                getDepartures(s.id, [s.buses], [s.destination]).then(result => {
+                    update(result, s);
 
                 });
 
