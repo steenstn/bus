@@ -47,7 +47,13 @@
 
         <script>
             let lol = () => {
-                store();
+
+                let site = document.getElementById("siteSearchInput").value;
+                let destination = document.getElementById("destinationSearchInput").value;
+                let buses = document.getElementById("busSearchInput").value;
+
+                let id = sites.find(s => s.name === site).id;
+                store(id, site, destination, buses);
                 document.getElementById("allStops").textContent='';
             getStoredSites().forEach(s => {
                 // {"id":4604,"site":"Ekstubben","destination":"Gullmarsplan","buses":"801"}

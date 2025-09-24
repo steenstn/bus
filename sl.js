@@ -34,12 +34,7 @@ function searchInternal(inputElement, resultElement) {
 }
 
 
-function store() {
-    let site = document.getElementById("siteSearchInput").value;
-    let destination = document.getElementById("destinationSearchInput").value;
-    let buses = document.getElementById("busSearchInput").value;
-
-    let id = sites.find(s => s.name === site).id;
+function store(id, site, destination, buses) {
     console.log("Storing", id, site, destination, buses);
     let currentStoredSites = getStoredSites();
     currentStoredSites.push({id:id, site: site, destination:destination,buses:buses});
