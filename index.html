@@ -78,17 +78,16 @@
             getDepartures(gullmarsplan, ["801", "814"], ["Älta", "Södra Hedvigslund"]).then(result => {
                 updateDepartures("gullmarsplan", result);
             });
-            getDepartures(vattugatan, ["812C", "813C", "815C"], ["Tyresö Kyrka", "Nyfors", "Tyresö C"]).then(result => {
-                updateDepartures("vattugatan", result);
-            });
             if (checkAlvik !== null) {
                 getDepartures(alviksStrand, ["30"], ["Sickla"]).then(result => {
                     updateDepartures("alviksStrand", result);
                 });
                 document.getElementById("vattugatanHeader").remove();
             } else {
-                let alviksStrandElement = document.getElementById("alviksStrandHeader");
-                alviksStrandElement.remove();
+                getDepartures(vattugatan, ["812C", "813C", "815C"], ["Tyresö Kyrka", "Nyfors", "Tyresö C"]).then(result => {
+                    updateDepartures("vattugatan", result);
+                });
+                document.getElementById("alviksStrandHeader").remove();
             }
 
         </script>
