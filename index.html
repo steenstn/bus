@@ -36,10 +36,12 @@
 
         <h2>Gullmarsplan</h2>
         <p id="gullmarsplan">Laddar...</p>
-        
-        <h2>Vattugatan</h2>
-        <p id="vattugatan">Laddar...</p>
-        <br />
+       
+        <div id="vattugatanHeader">
+            <h2>Vattugatan</h2>
+            <p id="vattugatan">Laddar...</p>
+            <br />
+        </div>
         <div id="alviksStrandHeader">
             <h2>Alviks Strand</h2>
             <p id="alviksStrand">Laddar...</p>
@@ -83,6 +85,7 @@
                 getDepartures(alviksStrand, ["30"], ["Sickla"]).then(result => {
                     updateDepartures("alviksStrand", result);
                 });
+                document.getElementById("vattugatanHeader").remove();
             } else {
                 let alviksStrandElement = document.getElementById("alviksStrandHeader");
                 alviksStrandElement.remove();
