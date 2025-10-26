@@ -40,29 +40,12 @@
         <h2>Vattugatan</h2>
         <p id="vattugatan">Laddar...</p>
         <br />
-        <p id="latestUpdate">Senast uppdaterad: </p>
-        <div id="searchBoxes">
-
-            <div class="inline">
-            <p>Station</p>
-            <input id="siteSearchInput" type="text" onInput="searchSite()" />
-            <ul id="siteSearchResult">
-            </ul>
-            </div>
-
-            <div class="inline">
-                <p>Destination</p>
-                <input id="destinationSearchInput" type="text" onInput="searchDestination()" />
-                <ul id="destinationSearchResult">
-                </ul>
-            </div>
-
-            <div class="inline-block">
-                <p>Busslinje</p>
-                <input id="busSearchInput" type="text" />
-            </div>
+        <div id="alviksStrandHeader">
+            <h2>Alviks Strand</h2>
+            <p id="alviksStrand">Laddar...</p>
+            <br />
         </div>
-        <button id="addSite" onClick="store()">Lägg till</button>
+        <p id="latestUpdate">Senast uppdaterad: </p>
 
         <script>
             console.log(document.cookie)
@@ -70,6 +53,9 @@
             let norraSkondal = 1810;
             let gullmarsplan = 9189;
             let vattugatan = 1003;
+            let alviksStrand = 9812;
+            let params = new URLSearchParams(document.location.search);
+            let checkAlvik = params.get("alvik"); 
 
             let updateDepartures = (id, data) => {
                 let output = document.getElementById(id);
@@ -93,6 +79,14 @@
             getDepartures(vattugatan, ["812C", "813C", "815C"], ["Tyresö Kyrka", "Nyfors", "Tyresö C"]).then(result => {
                 updateDepartures("vattugatan", result);
             });
+            if (checkAlvik !== null) {
+                getDepartures(alviksStrand, ["30"], ["Sickla"]).then(result => {
+                    updateDepartures("alviksStrand", result);
+                });
+            } else {
+                let alviksStrandElement = document.getElementById("alviksStrandHeader");
+                alviksStrandElement.remove();
+            }
 
         </script>
     </body>
